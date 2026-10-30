@@ -5,7 +5,7 @@
 - There is no build step and no package.json. `netlify.toml` is a leftover from the old Netlify hosting and is unused.
 
 ## Content
-- The copy follows the Avera Pivot Brief (Drive › Avera › Pivot): Avera sources and trades industrial deadstock in Mexico. It buys idle stock from one plant and resells it to the plant that needs it. Never use "marketplace", waitlist, commission, substitutes or self-serve framing; never show prices, margin or counterparties; no em dashes.
+- The copy follows the Avera Pivot Brief (Drive › Avera › Pivot): Avera sources industrial deadstock in Mexico: it finds idle stock in one plant and gets it to the plant that needs it. Never say that Avera buys stock (the founders asked for this). Never use "marketplace", waitlist, commission, substitutes or self-serve framing; never show prices, margin or counterparties; no em dashes.
 - Guarantee terms are not validated yet: say "guarantee" with terms "set out in every quote", nothing more specific.
 - Bilingual: every string is a pair of sibling elements with `lang="es"` and `lang="en"`; CSS hides the one that does not match `<html lang>`. Placeholders use `data-ph-es` / `data-ph-en`. Spanish is the default; English browsers get English; the choice is stored in localStorage.
 
