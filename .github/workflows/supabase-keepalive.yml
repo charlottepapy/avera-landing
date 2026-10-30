@@ -1,0 +1,27 @@
+# Keeps the Avera Supabase project from auto-pausing (free plan pauses after ~7 days without activity).
+# Runs twice a week so a delayed GitHub run never lets 7 days pass. Can also be run by hand from the Actions tab.
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "0 14 * * 1,4" # Mondays and Thursdays, 14:00 UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the leads table
+        env:
+          SUPABASE_URL: https://zyjcmhduqzdtxlxcaqno.supabase.co
+          # Publishable key: public by design (it is also in index.html). RLS lets it insert leads only, never read them.
+          SUPABASE_KEY: sb_publishable_A-E-OyBV4T-YyFEkD4dP5Q_xDLAfkk2
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H "apikey: $SUPABASE_KEY" \
+            "$SUPABASE_URL/rest/v1/leads?select=id&limit=1")
+          echo "Supabase responded with HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::Supabase did not answer normally. The project may be paused: restore it at https://supabase.com/dashboard/project/zyjcmhduqzdtxlxcaqno"
+            exit 1
+          fi
